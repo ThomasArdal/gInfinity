@@ -1,16 +1,16 @@
 {
-  "name" : "gInfinate",
-  "version" : "1.0.0",
-  "description" : "Describe me.",
-  "content_scripts" : [{"matches":["http://www.google.com/*","https://www.google.com/*"],"js":["js/jquery-1.4.1.min.js","js/gInfinate.js"]}],
+  "name" : "gInfinity",
+  "version" : "1.0.1",
+  "description" : "Infinite scroll for Google search results.",
+  "content_scripts" : [{"matches":["*://*/*"],"js":["js/jquery-1.7.min.js","js/gInfinity.js"]}],
   "permissions" : [
     "http://*/*",
     "https://*/*"
    ],
   "minimum_chrome_version" : "6.0.0.0",
   "icons" : {
-    "16" : "hippo-focus-16.png",
-    "48" : "hippo-focus-48.png",
-    "128" : "hippo-focus-128.png"
+    "16" : "infen_logo_16x16.png",
+    "48" : "infen_logo_48x48.png",
+    "128" : "infen_logo_128x128.png"
   }
 }
