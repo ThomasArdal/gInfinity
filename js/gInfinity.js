@@ -3,6 +3,7 @@ function execute() {
     var nextAnchor = $('#pnnext');
     if (!nextAnchor) return;
     var href = nextAnchor.attr('href');
+    var currentPage = 1;
     $(window).scroll(function () {
         var rso = $('#rso');
         if (!rso) return;
@@ -17,6 +18,7 @@ function execute() {
 
                 if (href) {
                     $.get(href, function (data) {
+                        currentPage++;
                         var toAppend = $(data).find('#rso').html();
                         nextAnchor = $(data).find('#pnnext');
                         if (!nextAnchor) {
@@ -25,6 +27,7 @@ function execute() {
                             href = nextAnchor.attr('href');
                         }
 
+                        rso.append($('<li></li>').attr('class', 'g').html('Page ' + currentPage));
                         rso.append(toAppend);
                         alreadyloading = false;
                     });
