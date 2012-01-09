@@ -3,7 +3,8 @@ function execute() {
     var nextAnchor = $('#pnnext');
     if (!nextAnchor) return;
     var href = nextAnchor.attr('href');
-    var currentPage = 1;
+    var nextPage = 2;
+    var previousUrl;
     $(window).scroll(function () {
         var rso = $('#rso');
         if (!rso) return;
@@ -18,7 +19,13 @@ function execute() {
 
                 if (href) {
                     $.get(href, function (data) {
-                        currentPage++;
+                        if (document.location.href != previousUrl) {
+                            nextPage = 2; // reset
+                        } else {
+                            nextPage++;
+                        }
+
+                        previousUrl = document.location.href;
                         var toAppend = $(data).find('#rso').html();
                         nextAnchor = $(data).find('#pnnext');
                         if (!nextAnchor) {
@@ -27,7 +34,7 @@ function execute() {
                             href = nextAnchor.attr('href');
                         }
 
-                        rso.append($('<li></li>').attr('class', 'g').html('Page ' + currentPage));
+                        rso.append($('<li></li>').attr('class', 'g').html('Page ' + nextPage));
                         rso.append(toAppend);
                         alreadyloading = false;
                     });
@@ -42,5 +49,5 @@ function execute() {
 $(document).ready(function () {
     if (document.location.href.indexOf('://www.google.') == -1) return;
     // Wait for Google to load the page
-    setTimeout('execute()', 300);
+    setTimeout('execute()', 500);
 });
