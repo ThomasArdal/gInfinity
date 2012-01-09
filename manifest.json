@@ -1,13 +1,10 @@
 {
   "name" : "gInfinity",
-  "version" : "1.1.0",
+  "version" : "1.1.3",
   "description" : "Infinite scroll for Google search results.",
   "background_page" : "js/background.html",
   "content_scripts" : [{"matches":["*://*/*"],"js":["js/jquery-1.7.min.js","js/gInfinity.js"]}],
-  "permissions" : [
-    "http://*/*",
-    "https://*/*"
-   ],
+   "permissions": [ "tabs", "https://*/*", "http://*/*" ],
   "minimum_chrome_version" : "6.0.0.0",
   "icons" : {
     "16" : "infen_logo_16x16.png",
