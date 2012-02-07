@@ -1,8 +1,7 @@
 {
   "name" : "gInfinity",
-  "version" : "1.1.4",
+  "version" : "1.1.5",
   "description" : "Infinite scroll for Google search results.",
-  "background_page" : "js/background.html",
   "content_scripts" : [{"matches":["*://*/*"],"js":["js/jquery-1.7.min.js","js/gInfinity.js"]}],
    "permissions": [ "tabs", "https://*/*", "http://*/*" ],
   "minimum_chrome_version" : "6.0.0.0",
