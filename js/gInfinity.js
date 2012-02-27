@@ -34,7 +34,7 @@ function execute() {
                             href = nextAnchor.attr('href');
                         }
 
-                        rso.append($('<li></li>').attr('class', 'g').html('Page ' + nextPage));
+                        rso.append($('<li></li>').attr('class', 'g').html('<span style="color:#3364c2;font-weight:bold;font-size:large;">P</span><span style="color:#f31900;font-weight:bold;font-size:large;">a</span><span style="color:#f7d72b;font-weight:bold;font-size:large;">g</span><span style="color:#3364c2;font-weight:bold;font-size:large;">e</span> <span style="color:#44c400;font-weight:bold;font-size:large;">' + nextPage + '</span>'));
                         rso.append(toAppend);
                         alreadyloading = false;
                     });
