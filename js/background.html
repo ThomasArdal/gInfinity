@@ -15,8 +15,15 @@ function initGinyas(){
 function globalEval(src, callback) {
   if (window.execScript) {window.execScript(src);if (callback){callback();} return;} 
   var fn = function() {window.eval.call(window,src);
-  if (callback){callback();}};fn();		
+  if (callback){callback();}};fn();
 }
+
+chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
+    if (request.method == "getLocalStorage")
+        sendResponse({ data: localStorage[request.key] });
+    else
+        sendResponse({}); // snub them.
+});
 </script>
 </body>
 </html>

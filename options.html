@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>gInfinity Options</title>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet"
+        type="text/css" />
+    <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
+</head>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    // Saves options to localStorage.
+    function save_options() {
+        var enableInfiniteScroll = $("#enableInfiniteScroll").is(":checked");
+        var enableTabs = $("#enableTabs").is(":checked");
+        var enableFocus = $("#enableFocus").is(":checked");
+        var enableLinks = $("#enableLinks").is(":checked");
+        localStorage["enable_infinite_scroll"] = enableInfiniteScroll;
+        localStorage["enable_tabs"] = enableTabs;
+        localStorage["enable_focus"] = enableFocus;
+        localStorage["enable_links"] = enableLinks;
+        $("#statusMessage").html("Options Saved.");
+        $("#status").fadeIn();
+        setTimeout(function () {
+            $("#status").fadeOut();
+        }, 3000);
+    }
+
+    // Restores select box state to saved value from localStorage.
+    function restore_options() {
+        var enableInfiniteScroll = localStorage["enable_infinite_scroll"];
+        if (!enableInfiniteScroll) {
+            enableInfiniteScroll = "true";
+        }
+        var enableTabs = localStorage["enable_tabs"];
+        if (!enableTabs) {
+            enableTabs = "true";
+        }
+        var enableFocus = localStorage["enable_focus"];
+        if (!enableFocus) {
+            enableFocus = "true";
+        }
+        var enableLinks = localStorage["enable_links"];
+        if (!enableLinks) {
+            enableLinks = "true";
+        }
+
+        $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
+        $("#enableTabs").attr("checked", enableTabs == "true");
+        $("#enableFocus").attr("checked", enableFocus == "true");
+        $("#enableLinks").attr("checked", enableLinks == "true");
+    }
+
+</script>
+<body onload="restore_options()">
+    <div class="container">
+        <div id="status" class="alert alert-success" style="display:none; margin-top: 15px;">
+            <strong id="statusMessage"></strong>
+        </div>
+        <ul id="tab" class="nav nav-tabs" style="margin-top: 15px;">
+            <li class="active"><a href="#ginfinity" data-toggle="tab">gInfinity</a></li>
+            <li class=""><a href="#tabs" data-toggle="tab">Tab</a></li>
+            <li class=""><a href="#focus" data-toggle="tab">Focus</a></li>
+            <li class=""><a href="#links" data-toggle="tab">Links</a></li>
+        </ul>
+        <form class="form-horizontal">
+        <div class="tab-content">
+            <div id="ginfinity" class="tab-pane fade active in">
+                <fieldset>
+                    <legend>Infinite scroll in Google search results</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="enableInfiniteScroll">Enable</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" id="enableInfiniteScroll">
+                                Enables infinite scroll within Google search results.
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div id="tabs" class="tab-pane fade">
+                <fieldset>
+                    <legend>Help me filling out forms</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="enableTabs">Enable</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" id="enableTabs">
+                                Enable automatic tab when max length of a input field is reached.
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div id="focus" class="tab-pane fade">
+                <fieldset>
+                    <legend>Override default focus</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="enableFocus">Enable</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" id="enableFocus">
+                                Enable context menu for setting focus when loading websites.
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div id="links" class="tab-pane fade">
+                <fieldset>
+                    <legend>Linkify urls in text</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="enableLinks">Enable</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" id="enableLinks">
+                                Enable converting urls in text to clickable links.
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button onclick="save_options(); return false;" class="btn btn-primary">Save changes</button>
+            <button onclick="restore_options(); return false;" class="btn">Cancel</button>
+        </div>
+        </form>
+    </div>
+</body>
+</html>
