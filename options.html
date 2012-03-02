@@ -7,20 +7,27 @@
     <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
 </head>
 <script type="text/javascript">
-    $(document).ready(function () {
-
-    });
     // Saves options to localStorage.
     function save_options() {
+        $("#status").removeClass("alert-success").removeClass("alert-error");
         var enableInfiniteScroll = $("#enableInfiniteScroll").is(":checked");
         var enableTabs = $("#enableTabs").is(":checked");
         var enableFocus = $("#enableFocus").is(":checked");
         var enableLinks = $("#enableLinks").is(":checked");
-        localStorage["enable_infinite_scroll"] = enableInfiniteScroll;
-        localStorage["enable_tabs"] = enableTabs;
-        localStorage["enable_focus"] = enableFocus;
-        localStorage["enable_links"] = enableLinks;
-        $("#statusMessage").html("Options Saved.");
+        try {
+            localStorage["enable_infinite_scroll"] = enableInfiniteScroll;
+            localStorage["enable_tabs"] = enableTabs;
+            localStorage["enable_focus"] = enableFocus;
+            localStorage["enable_links"] = enableLinks;
+            $("#status").addClass("alert-success");
+            $("#statusMessage").html("Options Saved.");
+        } catch (e) {
+            console.log(e);
+            if (e == QUOTA_EXCEEDED_ERR) {
+                $("#status").addClass("alert-success");
+                $("#statusMessage").html("Quota exceeded!");
+            }
+        }
         $("#status").fadeIn();
         setTimeout(function () {
             $("#status").fadeOut();
@@ -55,7 +62,7 @@
 </script>
 <body onload="restore_options()">
     <div class="container">
-        <div id="status" class="alert alert-success" style="display:none; margin-top: 15px;">
+        <div id="status" class="alert" style="display:none; margin-top: 15px;">
             <strong id="statusMessage"></strong>
         </div>
         <ul id="tab" class="nav nav-tabs" style="margin-top: 15px;">

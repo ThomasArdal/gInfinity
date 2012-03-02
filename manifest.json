@@ -3,9 +3,14 @@
   "version" : "2.0.0",
   "description" : "Infinite scroll for Google search results and a lot of other improvements to your browser experience.",
   "background_page" : "js/background.html",
-  "content_scripts" : [{"matches":["*://*/*"],"js":["js/jquery-1.7.min.js","js/gInfinity.js","js/gInfinity-tab.js"]}],
+  "content_scripts" : [{"matches":["*://*/*"],"js":["js/jquery-1.7.min.js","js/xpath.js","js/gInfinity.js","js/gInfinity-tab.js","js/gInfinity-focus.js"]}],
   "options_page": "options.html",
-   "permissions": [ "tabs", "https://*/*", "http://*/*" ],
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "https://*/*",
+    "http://*/*"
+  ],
   "minimum_chrome_version" : "6.0.0.0",
   "icons" : {
     "16" : "infen_logo_16x16.png",
