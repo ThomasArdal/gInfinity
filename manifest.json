@@ -2,19 +2,20 @@
   "name" : "gInfinity",
   "version" : "2.0.0",
   "description" : "Infinite scroll for Google search results and a lot of other improvements to your browser experience.",
-  "background_page" : "js/background.html",
-  "content_scripts" : [{"matches":["*://*/*"],"js":["js/jquery-1.7.min.js","js/xpath.js","js/gInfinity.js","js/gInfinity-tab.js","js/gInfinity-focus.js"]}],
+  "background_page" : "background.html",
+  "content_scripts" : [{"matches":["*://*/*"],"js":["lib/jquery-1.7.min.js","lib/xpath.js","js/gInfinity.js"]}],
   "options_page": "options.html",
   "permissions": [
     "contextMenus",
     "tabs",
+    "notifications",
     "https://*/*",
     "http://*/*"
   ],
   "minimum_chrome_version" : "6.0.0.0",
   "icons" : {
-    "16" : "infen_logo_16x16.png",
-    "48" : "infen_logo_48x48.png",
-    "128" : "infen_logo_128x128.png"
+    "16" : "images/infen_logo_16x16.png",
+    "48" : "images/infen_logo_48x48.png",
+    "128" : "images/infen_logo_128x128.png"
   }
 }

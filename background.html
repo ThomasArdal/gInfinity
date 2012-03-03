@@ -24,8 +24,9 @@ function globalEval(src, callback) {
 
 var xpath;
 
+// Set focus on element in xpath.
 function focusThis() {
-    return function(info, tab) {
+    return function (info, tab) {
         if (!xpath) {
             return;
         }
@@ -41,8 +42,9 @@ function focusThis() {
     };
 }
 
+// Remote focus for the current url.
 function unfocusThis() {
-    return function(info, tab) {
+    return function (info, tab) {
         localStorage.removeItem('focus_' + info.pageUrl);
     }
 }
@@ -58,10 +60,13 @@ function setFocus(url) {
     });
 }
 
+chrome.contextMenus.removeAll();
 if (localStorage["enable_focus"] == "true") {
-    chrome.contextMenus.create({ "title": "Focus", "type": "normal", "contexts": ["editable"], "onclick": focusThis() });
-    chrome.contextMenus.create({ "title": "Unfocus", "type": "normal", "contexts": ["editable"], "onclick": unfocusThis() });
+    var focusId = chrome.contextMenus.create({ "title": "Focus", "type": "normal", "contexts": ["editable"], "onclick": focusThis() });
+    var unfocusId = chrome.contextMenus.create({ "title": "Unfocus", "type": "normal", "contexts": ["editable"], "onclick": unfocusThis() });
 }
+
+////////// SHARED //////////////
 
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
     if (request.method == 'ready') {
@@ -75,15 +80,6 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
     } else {
         sendResponse({});
     }
-});
-
-////////// SHARED //////////////
-
-chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-    if (request.method == "getLocalStorage")
-        sendResponse({ data: localStorage[request.key] });
-    else
-        sendResponse({}); // snub them.
 });
 </script>
 </body>
