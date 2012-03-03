@@ -110,7 +110,7 @@ $(document).ready(function () {
             reg = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 
             while (node = tw.nextNode()) {
-                if (node.nodeValue.match(reg) && node.parentNode.tagName != 'A' && node.parentNode.tagName != 'TEXTAREA' && node.parentNode.tagName != 'STYLE' && node.parentNode.tagName != 'SCRIPT') {
+                if (node.nodeValue.match(reg) && node.parentNode.tagName != 'A' && node.parentNode.tagName != 'TEXTAREA' && node.parentNode.tagName != 'STYLE' && node.parentNode.tagName != 'SCRIPT' && node.parentNode.tagName != 'META' && node.parentNode.tagName != 'NOSCRIPT') {
                     var parentElem = node.parentNode;
                     var val = node.nodeValue.replace(reg, '<a href="$1">$1</a>');
                     var aNode = document.createElement("span");
