@@ -69,11 +69,11 @@ if (localStorage["enable_focus"] == "true") {
 ////////// SHARED //////////////
 
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-    if (request.method == 'setFocus') {
+    if (request.method == "setFocus") {
         chrome.tabs.getSelected(null, function (tab) {
             setFocus(tab.url);
         });
-    } else if (request.method == 'context') {
+    } else if (request.method == "setXPath") {
         xpath = request.xpath;
     } else if (request.method == "getLocalStorage") {
         sendResponse({ data: localStorage[request.key] });
