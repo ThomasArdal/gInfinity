@@ -43,7 +43,12 @@ function focusThis() {
         } catch (e) {
             console.log(e);
             if (e == QUOTA_EXCEEDED_ERR) {
-                alert('Quota exceeded! Try unfocusing some sites.');
+                var notification = webkitNotifications.createNotification(
+                    'images/infen_logo_48x48.png',
+                    'Whoops!',  // notification title
+                    'Quota exceeded. Try unfocusing some sites to free up space.'
+                );
+                notification.show();
             }
         }
     };
