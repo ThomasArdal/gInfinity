@@ -31,7 +31,7 @@
         } catch (e) {
             console.log(e);
             if (e == QUOTA_EXCEEDED_ERR) {
-                $("#status").addClass("alert-success");
+                $("#status").addClass("alert-error");
                 $("#statusMessage").html("Quota exceeded!");
             }
         }
