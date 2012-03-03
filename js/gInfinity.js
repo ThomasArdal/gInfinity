@@ -79,7 +79,7 @@ chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_focus" },
                     return;
                 }
 
-                chrome.extension.sendRequest({ xpath: xpath, method: "context" }, function (response) { });
+                chrome.extension.sendRequest({ xpath: xpath, method: "setXPath" }, function (response) { });
             }
         });
     }
@@ -97,7 +97,7 @@ $(document).ready(function () {
 
     chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_focus" }, function (response) {
         if (response.data == "true") {
-            chrome.extension.sendRequest({ method: "ready" }, function (response) {
+            chrome.extension.sendRequest({ method: "setFocus" }, function (response) {
             });
         }
     });
