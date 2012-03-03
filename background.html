@@ -67,11 +67,8 @@ function setFocus(url) {
     });
 }
 
-chrome.contextMenus.removeAll();
-if (localStorage["enable_focus"] == "true") {
-    var focusId = chrome.contextMenus.create({ "title": "Focus", "type": "normal", "contexts": ["editable"], "onclick": focusThis() });
-    var unfocusId = chrome.contextMenus.create({ "title": "Unfocus", "type": "normal", "contexts": ["editable"], "onclick": unfocusThis() });
-}
+var focusId = chrome.contextMenus.create({ "title": "Focus", "type": "normal", "contexts": ["editable"], "onclick": focusThis() });
+var unfocusId = chrome.contextMenus.create({ "title": "Unfocus", "type": "normal", "contexts": ["editable"], "onclick": unfocusThis() });
 
 ////////// SHARED //////////////
 
