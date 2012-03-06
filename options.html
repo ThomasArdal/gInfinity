@@ -44,21 +44,9 @@
     // Restores select box state to saved value from localStorage.
     function restore_options() {
         var enableInfiniteScroll = localStorage["enable_infinite_scroll"];
-        if (!enableInfiniteScroll) {
-            enableInfiniteScroll = "true";
-        }
         var enableTabs = localStorage["enable_tabs"];
-        if (!enableTabs) {
-            enableTabs = "true";
-        }
         var enableFocus = localStorage["enable_focus"];
-        if (!enableFocus) {
-            enableFocus = "true";
-        }
         var enableLinks = localStorage["enable_links"];
-        if (!enableLinks) {
-            enableLinks = "true";
-        }
 
         $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
         $("#enableTabs").attr("checked", enableTabs == "true");
