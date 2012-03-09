@@ -13,6 +13,7 @@
         var enableTabs = $("#enableTabs").is(":checked");
         var enableFocus = $("#enableFocus").is(":checked");
         var enableLinks = $("#enableLinks").is(":checked");
+        var enableAds = $("#enableAds").is(":checked");
         try {
             // Infinite scroll
             localStorage["enable_infinite_scroll"] = enableInfiniteScroll;
@@ -25,9 +26,16 @@
 
             // Links
             localStorage["enable_links"] = enableLinks;
+
+            // Ads
+            var before = localStorage["enable_ads"];
+            localStorage["enable_ads"] = enableAds;
+            var after = localStorage["enable_ads"];
             
+            var message = "Options saved." + (before != after ? " A restart of Chrome is required for your new options to take effect" : "");
+
             $("#status").addClass("alert-success");
-            $("#statusMessage").html("Options Saved.");
+            $("#statusMessage").html(message);
         } catch (e) {
             console.log(e);
             if (e == QUOTA_EXCEEDED_ERR) {
@@ -38,7 +46,7 @@
         $("#status").fadeIn();
         setTimeout(function () {
             $("#status").fadeOut();
-        }, 3000);
+        }, 7000);
     }
 
     // Restores select box state to saved value from localStorage.
@@ -47,11 +55,13 @@
         var enableTabs = localStorage["enable_tabs"];
         var enableFocus = localStorage["enable_focus"];
         var enableLinks = localStorage["enable_links"];
+        var enableAds = localStorage["enable_ads"];
 
         $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
         $("#enableTabs").attr("checked", enableTabs == "true");
         $("#enableFocus").attr("checked", enableFocus == "true");
         $("#enableLinks").attr("checked", enableLinks == "true");
+        $("#enableAds").attr("checked", enableAds == "true");
     }
 
 </script>
@@ -92,6 +102,15 @@
                         <label class="checkbox">
                             <input type="checkbox" id="enableLinks">
                             Enable converting urls in text to clickable links. <a href="http://www.youtube.com/watch?v=ETRl0q0wlyE" target="_blank"><img src="images/youtube.png" /></a>
+                        </label>
+                    </div>
+                </div>
+                <legend>Support development</legend>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" id="enableAds">
+                            Enable further development of gInfinity by showing ads.
                         </label>
                     </div>
                 </div>
