@@ -51,6 +51,7 @@ function execute() {
                         rso.append($('<li></li>').attr('class', 'g').html('<span style="text-shadow:1px 1px 2px #000;"><span style="color:#3364c2;font-weight:bold;font-size:large;">P</span><span style="color:#f31900;font-weight:bold;font-size:large;">a</span><span style="color:#f7d72b;font-weight:bold;font-size:large;">g</span><span style="color:#3364c2;font-weight:bold;font-size:large;">e</span> <span style="color:#44c400;font-weight:bold;font-size:large;">' + nextPage + '</span></span>'));
                         rso.append(toAppend);
                         alreadyloading = false;
+                        chrome.extension.sendRequest({ method: "log", category: "Infinite scroll", text: "Fetch page" }, function (response) {});
                     });
                 } else {
                     alreadyloading = false;
@@ -110,13 +111,14 @@ $(document).ready(function () {
             reg = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 
             while (node = tw.nextNode()) {
-                if (node.nodeValue.match(reg) && node.parentNode.tagName != 'A' && node.parentNode.tagName != 'TEXTAREA' && node.parentNode.tagName != 'STYLE' && node.parentNode.tagName != 'SCRIPT' && node.parentNode.tagName != 'META' && node.parentNode.tagName != 'NOSCRIPT') {
+                if (node.nodeValue.match(reg) && node.parentNode.tagName != 'A' && node.parentNode.tagName != 'TEXTAREA' && node.parentNode.tagName != 'STYLE' && node.parentNode.tagName != 'SCRIPT' && node.parentNode.tagName != 'META' && node.parentNode.tagName != 'NOSCRIPT' && node.parentNode.tagName != 'PRE') {
                     var parentElem = node.parentNode;
                     var val = node.nodeValue.replace(reg, '<a href="$1">$1</a>');
                     var aNode = document.createElement("span");
                     aNode.innerHTML = val;
                     parentElem.insertBefore(aNode, node);
                     rem.push(node);
+                    chrome.extension.sendRequest({ method: "log", category: "Links", text: "Convert url" }, function (response) { });
                     continue;
                 }
             }
@@ -125,7 +127,7 @@ $(document).ready(function () {
             }
         }
     });
-
+    x
     // Assign keyup listener if tabs feature enabled.
 
     chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_tabs" }, function (response) {
@@ -139,6 +141,7 @@ $(document).ready(function () {
                                 var mod = index % event.target.form.length;
                                 var ctrl = event.target.form[mod];
                                 ctrl.focus();
+                                chrome.extension.sendRequest({ method: "log", category: "Tabs", text: "Tab" }, function (response) { });
                             }
                         }
                     }
