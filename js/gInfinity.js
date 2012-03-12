@@ -127,7 +127,7 @@ $(document).ready(function () {
             }
         }
     });
-    x
+
     // Assign keyup listener if tabs feature enabled.
 
     chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_tabs" }, function (response) {
