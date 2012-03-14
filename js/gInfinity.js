@@ -51,7 +51,7 @@ function execute() {
 
                         /// Show potential video thumbs
                         var scripts = new Array();
-                        $.each($(toAppend).find('img[id^="vidthumb"],img[id^="imgthumb"]'), function (i, v) {
+                        $.each($(toAppend).find('img[id^="vidthumb"],img[id^="imgthumb"],img[id^="leftthumb"]'), function (i, v) {
                             var random = Math.floor(Math.random() * 1000000000);
                             var id = $(this).attr('id');
                             toAppend = toAppend.replace('id="' + id, 'id="' + random);
