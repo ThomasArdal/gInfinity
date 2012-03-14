@@ -63,7 +63,13 @@ function execute() {
                             });
                         });
 
-                        rso.append($('<li></li>').attr('class', 'g').html('<span style="text-shadow:1px 1px 2px #000;"><span style="color:#3364c2;font-weight:bold;font-size:large;">P</span><span style="color:#f31900;font-weight:bold;font-size:large;">a</span><span style="color:#f7d72b;font-weight:bold;font-size:large;">g</span><span style="color:#3364c2;font-weight:bold;font-size:large;">e</span> <span style="color:#44c400;font-weight:bold;font-size:large;">' + nextPage + '</span></span>'));
+                        var colors = ["007D08", "D62408", "1645AE"];
+                        var pageHeader = '<span style="text-shadow:1px 1px 2px #000;font-weight:bold;font-size:x-large;"><span style="color:#1645AE;">P</span><span style="color:#D62408;">a</span><span style="color:#EFBA00;">g</span><span style="color:#1645AE;">e</span> ';
+                        $.each(nextPage.toString().split(""), function (i, v) {
+                            pageHeader = pageHeader + '<span style="color:#' + colors[i] + ';">' + v + '</span>';
+                        });
+                        pageHeader = pageHeader + '</span>';
+                        rso.append($('<li></li>').attr('class', 'g').html(pageHeader));
                         rso.append(toAppend);
 
                         $.each(scripts, function (i, v) {
