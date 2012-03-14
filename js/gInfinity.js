@@ -40,18 +40,38 @@ function execute() {
                         }
 
                         previousUrl = document.location.href;
-                        var toAppend = $(data).find('#rso').html();
-                        nextAnchor = $(data).find('#pnnext');
+                        var jData = $(data);
+                        var toAppend = jData.find('#rso').html();
+                        nextAnchor = jData.find('#pnnext');
                         if (!nextAnchor) {
                             href = null;
                         } else {
                             href = nextAnchor.attr('href');
                         }
 
+                        /// Show potential video thumbs
+                        var scripts = new Array();
+                        $.each($(toAppend).find('img[id^="vidthumb"],img[id^="imgthumb"]'), function (i, v) {
+                            var random = Math.floor(Math.random() * 1000000000);
+                            var id = $(this).attr('id');
+                            toAppend = toAppend.replace('id="' + id, 'id="' + random);
+                            jData.filter('script').each(function (e, v) {
+                                var html = $(v).html();
+                                if (html != null && html.indexOf("(function(x){x&&(x.src='data:image/jpeg;base64") != -1 && html.indexOf(id) != -1) {
+                                    scripts.push(html.replace(id, random));
+                                }
+                            });
+                        });
+
                         rso.append($('<li></li>').attr('class', 'g').html('<span style="text-shadow:1px 1px 2px #000;"><span style="color:#3364c2;font-weight:bold;font-size:large;">P</span><span style="color:#f31900;font-weight:bold;font-size:large;">a</span><span style="color:#f7d72b;font-weight:bold;font-size:large;">g</span><span style="color:#3364c2;font-weight:bold;font-size:large;">e</span> <span style="color:#44c400;font-weight:bold;font-size:large;">' + nextPage + '</span></span>'));
                         rso.append(toAppend);
+
+                        $.each(scripts, function (i, v) {
+                            eval(v);
+                        });
+
                         alreadyloading = false;
-                        chrome.extension.sendRequest({ method: "log", category: "Infinite scroll", text: "Fetch page" }, function (response) {});
+                        chrome.extension.sendRequest({ method: "log", category: "Infinite scroll", text: "Fetch page" }, function (response) { });
                     });
                 } else {
                     alreadyloading = false;
