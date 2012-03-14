@@ -111,7 +111,7 @@ $(document).ready(function () {
         chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_infinite_scroll" }, function (response) {
             if (response.data == "true") {
                 // Wait for Google to load the page
-                setTimeout('execute()', 500);
+                setTimeout('execute()', 1000);
             }
         });
     }
