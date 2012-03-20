@@ -32,7 +32,7 @@ function execute() {
                 }
 
                 if (href) {
-                    rso.append($('<img/>').attr('src', chrome.extension.getURL('images/progress.gif')).attr('id', 'ginfinity-progress'));
+                    rso.append($('<img/>').attr('src', chrome.extension.getURL('images/progress.gif')).attr('id', 'ginfinity-progress').attr('style', 'margin-bottom: 20px;'));
                     $.get(href, function (data) {
                         if (document.location.href != previousUrl) {
                             nextPage = 2; // reset
