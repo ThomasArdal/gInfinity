@@ -32,6 +32,7 @@ function execute() {
                 }
 
                 if (href) {
+                    rso.append($('<img/>').attr('src', chrome.extension.getURL('images/progress.gif')).attr('id', 'ginfinity-progress'));
                     $.get(href, function (data) {
                         if (document.location.href != previousUrl) {
                             nextPage = 2; // reset
@@ -69,6 +70,8 @@ function execute() {
                             pageHeader = pageHeader + '<span style="color:#' + colors[i] + ';">' + v + '</span>';
                         });
                         pageHeader = pageHeader + '</span>';
+
+                        $('#ginfinity-progress').remove();
                         rso.append($('<li></li>').attr('class', 'g').html(pageHeader));
                         rso.append(toAppend);
 

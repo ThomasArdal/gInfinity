@@ -1,0 +1,4 @@
+2.1.0
+- Different colors for each digit in page number.
+- Video, image and left thumbs now loads.
+- Progress indicator
