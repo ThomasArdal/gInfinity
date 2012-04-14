@@ -12,6 +12,7 @@
         var enableInfiniteScroll = $("#enableInfiniteScroll").is(":checked");
         var enableTabs = $("#enableTabs").is(":checked");
         var enableFocus = $("#enableFocus").is(":checked");
+        var enablePing = $("#enablePing").is(":checked");
         var enableLinks = $("#enableLinks").is(":checked");
         var enableAds = $("#enableAds").is(":checked");
         try {
@@ -23,6 +24,9 @@
 
             // Focus
             localStorage["enable_focus"] = enableFocus;
+
+            // Ping
+            localStorage["enable_ping"] = enablePing;
 
             // Links
             localStorage["enable_links"] = enableLinks;
@@ -54,12 +58,14 @@
         var enableInfiniteScroll = localStorage["enable_infinite_scroll"];
         var enableTabs = localStorage["enable_tabs"];
         var enableFocus = localStorage["enable_focus"];
+        var enablePing = localStorage["enable_ping"];
         var enableLinks = localStorage["enable_links"];
         var enableAds = localStorage["enable_ads"];
 
         $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
         $("#enableTabs").attr("checked", enableTabs == "true");
         $("#enableFocus").attr("checked", enableFocus == "true");
+        $("#enablePing").attr("checked", enablePing == "true");
         $("#enableLinks").attr("checked", enableLinks == "true");
         $("#enableAds").attr("checked", enableAds == "true");
     }
@@ -104,6 +110,12 @@
                         <label class="checkbox">
                             <input type="checkbox" id="enableTabs">
                             Enable automatic tab when max length in a input field is reached.
+                        </label>
+                    </div>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" id="enablePing">
+                            Enable automatic ping when inputting URLs.
                         </label>
                     </div>
                 </div>

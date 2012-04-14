@@ -3,6 +3,8 @@ var codes = new Array(8, 9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 
                       40, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118,
                       119, 120, 121, 122, 123, 144, 145);
 
+reg = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+
 function getIndex(input) {
     var index = -1, i = 0, found = false;
     while (i < input.form.length && index == -1)
@@ -137,7 +139,6 @@ $(document).ready(function () {
             var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
             var node;
             var rem = [];
-            reg = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 
             while (node = tw.nextNode()) {
                 if (node.nodeValue.match(reg) && node.parentNode.tagName != 'A' && node.parentNode.tagName != 'TEXTAREA' && node.parentNode.tagName != 'STYLE' && node.parentNode.tagName != 'SCRIPT' && node.parentNode.tagName != 'META' && node.parentNode.tagName != 'NOSCRIPT' && node.parentNode.tagName != 'PRE') {
@@ -176,6 +177,24 @@ $(document).ready(function () {
                     }
                 }
             }
+        }
+    });
+
+    chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_ping" }, function (response) {
+        if (response.data == "true") {
+            $('input[type="url"]').blur(function () {
+                var input = this;
+                var val = $(input).val();
+                if (val && val != null && val.match(reg)) {
+                    $.ajax(val).fail(function() {
+                        $(input).css('background', '#FFDDDD');
+                        chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Fail" }, function (response) { });
+                    }).done(function() {
+                        $(input).css('background', '#DCFBD1');
+                        chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Success" }, function (response) { });
+                    });
+                }
+            });
         }
     });
 });
