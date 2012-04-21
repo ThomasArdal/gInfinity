@@ -186,12 +186,16 @@ $(document).ready(function () {
                 var input = this;
                 var val = $(input).val();
                 if (val && val != null && val.match(reg)) {
-                    $.ajax(val).fail(function() {
-                        $(input).css('background', '#FFDDDD');
-                        chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Fail" }, function (response) { });
-                    }).done(function() {
-                        $(input).css('background', '#DCFBD1');
-                        chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Success" }, function (response) { });
+                    $.ajax(val).fail(function () {
+                        chrome.extension.sendRequest({ method: "getLocalStorage", key: "ping_failure_color" }, function (response) {
+                            $(input).css('background', response.data);
+                            chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Fail" }, function (response) { });
+                        });
+                    }).done(function () {
+                        chrome.extension.sendRequest({ method: "getLocalStorage", key: "ping_success_color" }, function (response) {
+                            $(input).css('background', response.data);
+                            chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Success" }, function (response) { });
+                        });
                     });
                 }
             });

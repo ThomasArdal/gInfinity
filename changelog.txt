@@ -1,7 +1,10 @@
+2.3.0 (not released)
+- Background color showing result of ping now configurable.
+
 2.2.0
-- Ping check on input urls
+- Ping check on input urls.
 
 2.1.0
 - Different colors for each digit in page number.
 - Video, image and left thumbs now loads.
-- Progress indicator
+- Progress indicator.
