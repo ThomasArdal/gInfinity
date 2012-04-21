@@ -1,5 +1,6 @@
 2.3.0 (not released)
 - Background color showing result of ping now configurable.
+- Ping now works on all input elements and not only those of type url.
 
 2.2.0
 - Ping check on input urls.

@@ -182,7 +182,7 @@ $(document).ready(function () {
 
     chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_ping" }, function (response) {
         if (response.data == "true") {
-            $('input[type="url"]').blur(function () {
+            $('input').blur(function () {
                 var input = this;
                 var val = $(input).val();
                 if (val && val != null && val.match(reg)) {
