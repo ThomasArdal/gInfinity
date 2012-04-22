@@ -188,12 +188,12 @@ $(document).ready(function () {
                 if (val && val != null && val.match(reg)) {
                     $.ajax(val).fail(function () {
                         chrome.extension.sendRequest({ method: "getLocalStorage", key: "ping_failure_color" }, function (response) {
-                            $(input).css('background', response.data);
+                            $(input).css('background', '#' + response.data);
                             chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Fail" }, function (response) { });
                         });
                     }).done(function () {
                         chrome.extension.sendRequest({ method: "getLocalStorage", key: "ping_success_color" }, function (response) {
-                            $(input).css('background', response.data);
+                            $(input).css('background', '#' + response.data);
                             chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Success" }, function (response) { });
                         });
                     });
