@@ -17,6 +17,7 @@
         var pingFailureColor = $("#pingFailureColor").val();
         var enableLinks = $("#enableLinks").is(":checked");
         var enableAds = $("#enableAds").is(":checked");
+        var enableColorChooser = $("#enableColorChooser").is(":checked");
         try {
             // Infinite scroll
             localStorage["enable_infinite_scroll"] = enableInfiniteScroll;
@@ -39,6 +40,9 @@
             var before = localStorage["enable_ads"];
             localStorage["enable_ads"] = enableAds;
             var after = localStorage["enable_ads"];
+
+            // Color Chooser
+            localStorage["enable_color_chooser"] = enableColorChooser;
             
             var message = "Options saved." + (before != after ? " A restart of Chrome is required for your new options to take effect" : "");
 
@@ -67,6 +71,7 @@
         var pingFailureColor = localStorage["ping_failure_color"];
         var enableLinks = localStorage["enable_links"];
         var enableAds = localStorage["enable_ads"];
+        var enableColorChooser = localStorage["enable_color_chooser"];
 
         $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
         $("#enableTabs").attr("checked", enableTabs == "true");
@@ -76,6 +81,7 @@
         $("#pingFailureColor").val(pingFailureColor);
         $("#enableLinks").attr("checked", enableLinks == "true");
         $("#enableAds").attr("checked", enableAds == "true");
+        $("#enableColorChooser").attr("checked", enableColorChooser == "true");
         if (enablePing == "true") {
             $("#enablePingDetails").show();
         }
@@ -131,13 +137,19 @@
                         <div id="enablePingDetails" style="display: none;">
                             <div class="span2">
                                 <label>Success Color</label>
-                                <input id="pingSuccessColor" class="color" style="width: 100px;" />
+                                <input id="pingSuccessColor" class="color {hash:true}" style="width: 100px;" />
                             </div>
                             <div class="span3">
                                 <label>Failure Color</label>
-                                <input id="pingFailureColor" class="color" style="width: 100px;" />
+                                <input id="pingFailureColor" class="color {hash:true}" style="width: 100px;" />
                             </div>
                         </div>
+                    </div>
+                    <div class="controls" style="clear: both;">
+                        <label class="checkbox">
+                            <input type="checkbox" id="enableColorChooser">
+                            Enable color chooser in input elements with type color.
+                        </label>
                     </div>
                 </div>
                 <legend>Linkify urls in text</legend>

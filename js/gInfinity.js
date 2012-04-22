@@ -188,17 +188,25 @@ $(document).ready(function () {
                 if (val && val != null && val.match(reg)) {
                     $.ajax(val).fail(function () {
                         chrome.extension.sendRequest({ method: "getLocalStorage", key: "ping_failure_color" }, function (response) {
-                            $(input).css('background', '#' + response.data);
+                            $(input).css('background', response.data);
                             chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Fail" }, function (response) { });
                         });
                     }).done(function () {
                         chrome.extension.sendRequest({ method: "getLocalStorage", key: "ping_success_color" }, function (response) {
-                            $(input).css('background', '#' + response.data);
+                            $(input).css('background', response.data);
                             chrome.extension.sendRequest({ method: "log", category: "Ping", text: "Ping Success" }, function (response) { });
                         });
                     });
                 }
             });
+        }
+    });
+
+    chrome.extension.sendRequest({ method: "getLocalStorage", key: "enable_color_chooser" }, function (response) {
+        if (response.data == "true") {
+            $("input[type=color]").addClass("color {hash:true,required:false}");
+            jscolor.init();
+            chrome.extension.sendRequest({ method: "log", category: "Color", text: "Color Chooser" }, function (response) { });
         }
     });
 });
