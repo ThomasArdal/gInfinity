@@ -1,4 +1,7 @@
-2.3.0 (not released)
+2.3.1
+- Shows a welcome message with choice to disable ads on install.
+
+2.3.0
 - Background color showing result of ping now configurable.
 - Ping now works on all input elements and not only those of type url.
 - New option to show color picker on input elements of type color.

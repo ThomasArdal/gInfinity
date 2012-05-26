@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Welcome to gInfinity</title>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="lib/jquery-1.7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-unit" style="margin-top: 30px;">
+            <h1><img src="images/infen_logo_128x128.png" /> Congratulations!</h1>
+            <h2>You just installed gInfinity for Google Chrome</h2>
+        </div>
+        <p>I know that you probably just want to start using all of the nice features of gInfinity, but if I can lend just 1 minute of your time, I would very much appreciate it. Doing software is harder and more time consuming than it looks. I live from making software and love doing it. Unfortunately I can't afford to work for free, why all of my software should be monetizable somehow. I'm sure you understand why and if not, try imagining yourself working for free. Not a happy though, right? :-)</p><br /><br />
+        <h3><input id="showAds" type="checkbox" checked /> Ok, help financing future development of gInfinity by showing discrete ads on some websites</h3><br /><br />
+        <p><img src="images/ads.png" id="adImage" /></p>
+    </div>
+    <script type="text/javascript">
+        $('#showAds').change(function () {
+            var isChecked = $(this).is(':checked');
+            if (isChecked) {
+                $('#adImage').animate({ opacity: 1.0 });
+                localStorage["enable_ads"] = true;
+            } else {
+                $('#adImage').animate({ opacity: 0.2 });
+                localStorage["enable_ads"] = false;
+            }
+        });
+    </script>
+</body>
+</html>
