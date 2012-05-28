@@ -52,6 +52,11 @@ function execute() {
                             href = nextAnchor.attr('href');
                         }
 
+                        // Insert preview in all results
+                        while (toAppend.indexOf('</h3><div class="s">') != -1) {
+                            toAppend = toAppend.replace('</h3><div class="s">', '</h3><div class="vspib" aria-label="Result details" role="button" tabindex="0"><div class="vspii"><div class="vspiic"></div></div></div><div class="s">');
+                        }
+
                         /// Show potential video thumbs
                         var scripts = new Array();
                         $.each($(toAppend).find('img[id^="vidthumb"],img[id^="imgthumb"],img[id^="leftthumb"]'), function (i, v) {
