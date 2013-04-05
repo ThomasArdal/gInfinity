@@ -16,7 +16,6 @@
         var pingSuccessColor = $("#pingSuccessColor").val();
         var pingFailureColor = $("#pingFailureColor").val();
         var enableLinks = $("#enableLinks").is(":checked");
-        var enableAds = $("#enableAds").is(":checked");
         var enableColorChooser = $("#enableColorChooser").is(":checked");
         try {
             // Infinite scroll
@@ -35,11 +34,6 @@
 
             // Links
             localStorage["enable_links"] = enableLinks;
-
-            // Ads
-            var before = localStorage["enable_ads"];
-            localStorage["enable_ads"] = enableAds;
-            var after = localStorage["enable_ads"];
 
             // Color Chooser
             localStorage["enable_color_chooser"] = enableColorChooser;
@@ -70,7 +64,6 @@
         var pingSuccessColor = localStorage["ping_success_color"];
         var pingFailureColor = localStorage["ping_failure_color"];
         var enableLinks = localStorage["enable_links"];
-        var enableAds = localStorage["enable_ads"];
         var enableColorChooser = localStorage["enable_color_chooser"];
 
         $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
@@ -80,7 +73,6 @@
         $("#pingSuccessColor").val(pingSuccessColor);
         $("#pingFailureColor").val(pingFailureColor);
         $("#enableLinks").attr("checked", enableLinks == "true");
-        $("#enableAds").attr("checked", enableAds == "true");
         $("#enableColorChooser").attr("checked", enableColorChooser == "true");
         if (enablePing == "true") {
             $("#enablePingDetails").show();
@@ -158,15 +150,6 @@
                         <label class="checkbox">
                             <input type="checkbox" id="enableLinks">
                             Enable converting urls in text to clickable links. <a href="http://www.youtube.com/watch?v=ETRl0q0wlyE" target="_blank"><img src="images/youtube.png" /></a>
-                        </label>
-                    </div>
-                </div>
-                <legend>Support development</legend>
-                <div class="control-group">
-                    <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" id="enableAds">
-                            Enable further development of gInfinity by showing ads.
                         </label>
                     </div>
                 </div>
