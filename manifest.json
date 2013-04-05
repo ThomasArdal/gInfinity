@@ -5,7 +5,7 @@
   "description" : "Infinite scroll for Google search results and a lot of other improvements to your browser experience.",
   "background" : {
 	"scripts" : ["js/background.js"],
-	"persistent" : false
+	"persistent" : true
   },
   "content_scripts" : [{"matches":["*://*/*"],"js":["lib/jquery-1.7.min.js","lib/xpath.js","js/gInfinity.js"]}],
   "options_page": "options.html",

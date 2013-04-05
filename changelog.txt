@@ -1,5 +1,7 @@
 2.4.0
-- Removed ads
+- Upgraded to manifest version 2.
+- Removed color picker. Now build into chrome.
+- Removed ads.
 
 2.3.2
 - Add preview arrow to results on fetched pages.

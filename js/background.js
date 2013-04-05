@@ -1,12 +1,3 @@
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-26812870-2']);
-_gaq.push(['_trackPageview']);
-
-(function () {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = 'https://ssl.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
 ///////// BOOTSTRAP ////////
 
 function install_notice() {
@@ -44,7 +35,6 @@ function focusThis() {
 
         try {
             localStorage['focus_' + info.pageUrl] = xpath;
-            _gaq.push(['_trackEvent', 'Focus', 'Select focus element']);
         } catch (e) {
             console.log(e);
             if (e == QUOTA_EXCEEDED_ERR) {
@@ -63,7 +53,6 @@ function focusThis() {
 function unfocusThis() {
     return function (info, tab) {
         localStorage.removeItem('focus_' + info.pageUrl);
-        _gaq.push(['_trackEvent', 'Focus', 'Delete focus element']);
     }
 }
 
@@ -72,8 +61,6 @@ function setFocus(url) {
     if (!elementXpath) {
 		return;
     }
-
-    _gaq.push(['_trackEvent', 'Focus', 'Set focus']);
 
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendMessage(tab.id, { xpath: elementXpath }, function(response) { });
@@ -85,7 +72,7 @@ var unfocusId = chrome.contextMenus.create({ "title": "Unfocus", "type": "normal
 
 ////////// SHARED //////////////
 
-chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.method == "setFocus") {
         chrome.tabs.getSelected(null, function (tab) {
             setFocus(tab.url);
@@ -94,9 +81,6 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
         xpath = request.xpath;
     } else if (request.method == "getLocalStorage") {
         sendResponse({ data: localStorage[request.key] });
-    } else if (request.method == "log") {
-        _gaq.push(['_trackEvent', request.category, request.text]);
-        sendResponse({});
     } else {
         sendResponse({});
     }

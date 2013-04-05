@@ -34,7 +34,7 @@ function execute() {
                 }
 
                 if (href) {
-                    rso.append($('<img/>').attr('src', chrome.extension.getURL('images/progress.gif')).attr('id', 'ginfinity-progress').attr('style', 'margin-bottom: 20px;'));
+                    rso.append($('<img/>').attr('src', chrome.runtime.getURL('images/progress.gif')).attr('id', 'ginfinity-progress').attr('style', 'margin-bottom: 20px;'));
                     $.get(href, function (data) {
                         if (document.location.href != previousUrl) {
                             nextPage = 2; // reset
@@ -87,7 +87,6 @@ function execute() {
                         });
 
                         alreadyloading = false;
-                        chrome.extension.sendMessage({ method: "log", category: "Infinite scroll", text: "Fetch page" }, function (response) { });
                     });
                 } else {
                     alreadyloading = false;
@@ -97,7 +96,7 @@ function execute() {
     });
 }
 
-chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var elements = getElementsByXPath(document, request.xpath);
     if (elements && elements.length > 0) {
         $(elements[0]).focus();
@@ -107,7 +106,7 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 
 // Send xpath info about selected input field when clicking the context menu.
 
-chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_focus" }, function (response) {
+chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_focus" }, function (response) {
     if (response.data == "true") {
         document.addEventListener("contextmenu", function (event) {
             if ($(event.target).is(':input')) {
@@ -116,7 +115,7 @@ chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_focus" },
                     return;
                 }
 
-                chrome.extension.sendMessage({ xpath: xpath, method: "setXPath" }, function (response) { });
+                chrome.runtime.sendMessage({ xpath: xpath, method: "setXPath" }, function (response) { });
             }
         });
     }
@@ -124,7 +123,7 @@ chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_focus" },
 
 $(document).ready(function () {
     if (document.location.href.indexOf('://www.google.') != -1) {
-        chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_infinite_scroll" }, function (response) {
+        chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_infinite_scroll" }, function (response) {
             if (response.data == "true") {
                 // Wait for Google to load the page
                 setTimeout('execute()', 1000);
@@ -132,14 +131,14 @@ $(document).ready(function () {
         });
     }
 
-    chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_focus" }, function (response) {
+    chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_focus" }, function (response) {
         if (response.data == "true") {
-            chrome.extension.sendMessage({ method: "setFocus" }, function (response) {
+            chrome.runtime.sendMessage({ method: "setFocus" }, function (response) {
             });
         }
     });
 
-    chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_links" }, function (response) {
+    chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_links" }, function (response) {
         if (response.data == "true" && document.getElementById && document.createTreeWalker && typeof NodeFilter != "undefined") {
             var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
             var node;
@@ -153,7 +152,6 @@ $(document).ready(function () {
                     aNode.innerHTML = val;
                     parentElem.insertBefore(aNode, node);
                     rem.push(node);
-                    chrome.extension.sendMessage({ method: "log", category: "Links", text: "Convert url" }, function (response) { });
                     continue;
                 }
             }
@@ -165,7 +163,7 @@ $(document).ready(function () {
 
     // Assign keyup listener if tabs feature enabled.
 
-    chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_tabs" }, function (response) {
+    chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_tabs" }, function (response) {
         if (response.data == "true") {
             document.onkeyup = function (event) {
                 if ($.inArray(event.keyCode, codes) == -1) {
@@ -176,7 +174,6 @@ $(document).ready(function () {
                                 var mod = index % event.target.form.length;
                                 var ctrl = event.target.form[mod];
                                 ctrl.focus();
-                                chrome.extension.sendMessage({ method: "log", category: "Tabs", text: "Tab" }, function (response) { });
                             }
                         }
                     }
@@ -185,7 +182,7 @@ $(document).ready(function () {
         }
     });
 
-    chrome.extension.sendMessage({ method: "getLocalStorage", key: "enable_ping" }, function (response) {
+    chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_ping" }, function (response) {
         if (response.data == "true") {
             $('input').blur(function () {
                 var input = this;
@@ -193,10 +190,8 @@ $(document).ready(function () {
                 if (val && val != null && val.match(reg)) {
                     $.ajax(val).fail(function () {
                         $(input).css('background', '#FFDDDD');
-                        chrome.extension.sendMessage({ method: "log", category: "Ping", text: "Ping Fail" }, function (response) { });
                     }).done(function () {
                         $(input).css('background', '#DCFBD1');
-                        chrome.extension.sendMessage({ method: "log", category: "Ping", text: "Ping Success" }, function (response) { });
                     });
                 }
             });
