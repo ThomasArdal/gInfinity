@@ -1,101 +1,10 @@
 <html>
 <head>
     <title>gInfinity Options</title>
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="lib/jquery-1.7.min.js"></script>
-    <script type="text/javascript" src="lib/jscolor.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 </head>
-<script type="text/javascript">
-    // Saves options to localStorage.
-    function save_options() {
-        $("#status").removeClass("alert-success").removeClass("alert-error");
-        var enableInfiniteScroll = $("#enableInfiniteScroll").is(":checked");
-        var enableTabs = $("#enableTabs").is(":checked");
-        var enableFocus = $("#enableFocus").is(":checked");
-        var enablePing = $("#enablePing").is(":checked");
-        var pingSuccessColor = $("#pingSuccessColor").val();
-        var pingFailureColor = $("#pingFailureColor").val();
-        var enableLinks = $("#enableLinks").is(":checked");
-        var enableColorChooser = $("#enableColorChooser").is(":checked");
-        try {
-            // Infinite scroll
-            localStorage["enable_infinite_scroll"] = enableInfiniteScroll;
-
-            // Tabs
-            localStorage["enable_tabs"] = enableTabs;
-
-            // Focus
-            localStorage["enable_focus"] = enableFocus;
-
-            // Ping
-            localStorage["enable_ping"] = enablePing;
-            localStorage["ping_success_color"] = pingSuccessColor;
-            localStorage["ping_failure_color"] = pingFailureColor;
-
-            // Links
-            localStorage["enable_links"] = enableLinks;
-
-            // Color Chooser
-            localStorage["enable_color_chooser"] = enableColorChooser;
-            
-            var message = "Options saved." + (before != after ? " A restart of Chrome is required for your new options to take effect" : "");
-
-            $("#status").addClass("alert-success");
-            $("#statusMessage").html(message);
-        } catch (e) {
-            console.log(e);
-            if (e == QUOTA_EXCEEDED_ERR) {
-                $("#status").addClass("alert-error");
-                $("#statusMessage").html("Quota exceeded!");
-            }
-        }
-        $("#status").fadeIn();
-        setTimeout(function () {
-            $("#status").fadeOut();
-        }, 7000);
-    }
-
-    // Restores select box state to saved value from localStorage.
-    function restore_options() {
-        var enableInfiniteScroll = localStorage["enable_infinite_scroll"];
-        var enableTabs = localStorage["enable_tabs"];
-        var enableFocus = localStorage["enable_focus"];
-        var enablePing = localStorage["enable_ping"];
-        var pingSuccessColor = localStorage["ping_success_color"];
-        var pingFailureColor = localStorage["ping_failure_color"];
-        var enableLinks = localStorage["enable_links"];
-        var enableColorChooser = localStorage["enable_color_chooser"];
-
-        $("#enableInfiniteScroll").attr("checked", enableInfiniteScroll == "true");
-        $("#enableTabs").attr("checked", enableTabs == "true");
-        $("#enableFocus").attr("checked", enableFocus == "true");
-        $("#enablePing").attr("checked", enablePing == "true");
-        $("#pingSuccessColor").val(pingSuccessColor);
-        $("#pingFailureColor").val(pingFailureColor);
-        $("#enableLinks").attr("checked", enableLinks == "true");
-        $("#enableColorChooser").attr("checked", enableColorChooser == "true");
-        if (enablePing == "true") {
-            $("#enablePingDetails").show();
-        }
-    }
-
-</script>
-<body onload="restore_options()">
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-26812870-2']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = 'https://ssl.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
+<body>
     <div class="container">
-        <div id="status" class="alert" style="display:none; margin-top: 15px;">
-            <strong id="statusMessage"></strong>
-        </div>
         <form class="form-horizontal" style="margin-top: 15px;">
             <fieldset>
                 <legend>Infinite scroll in Google search results</legend>
@@ -126,22 +35,6 @@
                             <input type="checkbox" id="enablePing">
                             Enable automatic ping when inputting URLs.
                         </label>
-                        <div id="enablePingDetails" style="display: none;">
-                            <div class="span2">
-                                <label>Success Color</label>
-                                <input id="pingSuccessColor" class="color {hash:true}" style="width: 100px;" />
-                            </div>
-                            <div class="span3">
-                                <label>Failure Color</label>
-                                <input id="pingFailureColor" class="color {hash:true}" style="width: 100px;" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="controls" style="clear: both;">
-                        <label class="checkbox">
-                            <input type="checkbox" id="enableColorChooser">
-                            Enable color chooser in input elements with type color.
-                        </label>
                     </div>
                 </div>
                 <legend>Linkify urls in text</legend>
@@ -155,26 +48,16 @@
                 </div>
             </fieldset>
             <div class="form-actions">
-                <button onclick="save_options(); return false;" class="btn btn-primary">Save changes</button>
-                <button onclick="restore_options(); return false;" class="btn">Cancel</button>
+                <button id="saveButton" class="btn btn-primary">Save changes</button>
+                <button id="cancelButton" class="btn">Cancel</button>
             </div>
         </form>
         <div class="row span11" style="margin-left: 160px;">
-            <a href="http://ginfinity.uservoice.com" target="_blank"><img src="http://app.uservoice.com/images/marketing/header_logo.png" /></a> <a href="https://github.com/ThomasArdal/gInfinity"><img src="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/GitHub-Logo.png" height="38" /></a><br />
-            gInfinity © by <a href="http://thomasardal.com" target="_blank">Thomas Ardal</a>
+            gInfinity © by <a href="http://thomasardal.com" target="_blank">Thomas Ardal</a><a href="http://ginfinity.uservoice.com" target="_blank" style="margin-left: 30px;"><img src="http://app.uservoice.com/images/marketing/header_logo.png" /></a><a href="https://github.com/ThomasArdal/gInfinity" target="_blank" style="margin-left: 30px;"><img src="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/GitHub-Logo.png" style="height: 38px;" /></a>
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#enablePing').change(function () {
-                if (this.checked) {
-                    $('#enablePingDetails').fadeIn();
-                } else {
-                    $('#enablePingDetails').fadeOut();
-                }
-            });
-        });
-    </script>
+    <script type="text/javascript" src="lib/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
 </body>
 </html>

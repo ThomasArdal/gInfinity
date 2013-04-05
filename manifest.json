@@ -1,9 +1,13 @@
 {
   "name" : "gInfinity",
   "version" : "2.4.0",
+  "manifest_version" : 2,
   "description" : "Infinite scroll for Google search results and a lot of other improvements to your browser experience.",
-  "background_page" : "background.html",
-  "content_scripts" : [{"matches":["*://*/*"],"js":["lib/jquery-1.7.min.js","lib/xpath.js","lib/jscolor.js","js/gInfinity.js"]}],
+  "background" : {
+	"scripts" : ["js/background.js"],
+	"persistent" : false
+  },
+  "content_scripts" : [{"matches":["*://*/*"],"js":["lib/jquery-1.7.min.js","lib/xpath.js","js/gInfinity.js"]}],
   "options_page": "options.html",
   "permissions": [
     "contextMenus",
