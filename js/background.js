@@ -13,7 +13,7 @@ install_notice();
 if (!localStorage["enable_focus"]) localStorage["enable_focus"] = "true"
 if (!localStorage["enable_infinite_scroll"]) localStorage["enable_infinite_scroll"] = "true"
 if (!localStorage["enable_links"]) localStorage["enable_links"] = "true"
-if (!localStorage["enable_tabs"]) localStorage["enable_tabs"] = "true"
+if (!localStorage["enable_tabs"]) localStorage["enable_tabs"] = "false"
 if (!localStorage["enable_ping"]) localStorage["enable_ping"] = "false"
 
 function globalEval(src, callback) {
