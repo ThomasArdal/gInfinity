@@ -168,7 +168,7 @@ $(document).ready(function () {
             document.onkeyup = function (event) {
                 if ($.inArray(event.keyCode, codes) == -1) {
                     if ($(event.target).is('input')) {
-                        if (event.target.maxLength) {
+                        if (event.target.maxLength > 0) {
                             if (event.target.value.length >= event.target.maxLength) {
                                 var index = (getIndex(event.target) + 1);
                                 var mod = index % event.target.form.length;
