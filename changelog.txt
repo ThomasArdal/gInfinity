@@ -1,3 +1,6 @@
+2.4.1
+- Fixed bug in auto tab.
+
 2.4.0
 - Upgraded to manifest version 2.
 - Removed color picker. Now build into chrome.
