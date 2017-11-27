@@ -3,7 +3,7 @@ var codes = new Array(8, 9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 
                       40, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118,
                       119, 120, 121, 122, 123, 144, 145);
 
-reg = /^(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+reg = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 
 function getIndex(input) {
     var index = -1, i = 0, found = false;
@@ -135,29 +135,6 @@ $(document).ready(function () {
         if (response.data == "true") {
             chrome.runtime.sendMessage({ method: "setFocus" }, function (response) {
             });
-        }
-    });
-
-    chrome.runtime.sendMessage({ method: "getLocalStorage", key: "enable_links" }, function (response) {
-        if (response.data == "true" && document.getElementById && document.createTreeWalker && typeof NodeFilter != "undefined") {
-            var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-            var node;
-            var rem = [];
-
-            while (node = tw.nextNode()) {
-                if (node.nodeValue.match(reg) && node.parentNode.tagName != 'A' && node.parentNode.tagName != 'TEXTAREA' && node.parentNode.tagName != 'STYLE' && node.parentNode.tagName != 'SCRIPT' && node.parentNode.tagName != 'META' && node.parentNode.tagName != 'NOSCRIPT' && node.parentNode.tagName != 'PRE') {
-                    var parentElem = node.parentNode;
-                    var val = node.nodeValue.replace(reg, '<a href="$1">$1</a>');
-                    var aNode = document.createElement("span");
-                    aNode.innerHTML = val;
-                    parentElem.insertBefore(aNode, node);
-                    rem.push(node);
-                    continue;
-                }
-            }
-            for (i in rem) {
-                rem[i].parentNode.removeChild(rem[i]);
-            }
         }
     });
 
